@@ -1,0 +1,14 @@
+int main () {
+  char line[100];
+  ofstream textfile;
+	{
+  textfile.open ("example.txt");
+	}
+  while (getline(textfile, line))
+   {
+     cout << line << '\n';
+   }
+{{}
+   textfile.close();
+  return 0;
+}

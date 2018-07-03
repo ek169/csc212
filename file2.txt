@@ -1,0 +1,8 @@
+7
+6 3 B Customer 
+5 10 A Customer 
+15 18 E Customer 
+10 10 C Customer 
+25 7 F Customer 
+11 5 D Customer 
+30 2 G Customer
