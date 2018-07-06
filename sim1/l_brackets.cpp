@@ -1,30 +1,30 @@
-#include "linked_stack.h"
+#include "l_char_stack.h"
 #include <iostream>
 
-Linked_List::Linked_List()
+L_Char_Stack::L_Char_Stack()
 {
 	head = nullptr;
 	size = 0;
 }
 
-Linked_List::~Linked_List()
+L_Char_Stack::~L_Char_Stack()
 {
 	while(!isEmpty())
 		pop();
 }
 
-bool Linked_List::isEmpty() const
+bool L_Char_Stack::isEmpty() const
 {
     return size == 0;
 }
 
-int Linked_List::get_size() const
+int L_Char_Stack::get_size() const
 {
     return size;
 }
 
 
-bool Linked_List::push(const ListItemType& newItem)
+bool L_Char_Stack::push(const ListItemType& newItem)
 {
   if(newItem)
   {
@@ -49,7 +49,7 @@ bool Linked_List::push(const ListItemType& newItem)
 }
 
 
-char Linked_List::pop()
+char L_Char_Stack::pop()
 {
     char item;
     if(size > 0)
@@ -76,7 +76,7 @@ char Linked_List::pop()
 
 }
 
-bool Linked_List::clear()
+bool L_Char_Stack::clear()
 {
   while(!isEmpty())
 		pop();

@@ -1,7 +1,7 @@
-#ifndef P_STACK
-#define P_STACK
+#ifndef A_CHAR_STACK
+#define A_CHAR_STACK
 
-class pStack
+class A_Char_Stack
 {
 private:
   // an array
@@ -11,14 +11,13 @@ private:
   void copy_array();
 
 public:
-  pStack();
-  ~pStack();
+  A_Char_Stack();
+  ~A_Char_Stack();
   bool should_resize();
   int get_size();
   void push(char);
   char pop();
   void clear();
-  void print_stack();
 
 };
 

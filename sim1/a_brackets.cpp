@@ -1,20 +1,20 @@
-#include "parenthesis_stack.h"
+#include "a_char_stack.h"
 #include <iostream>
 using namespace std;
 
-pStack::pStack()
+A_Char_Stack::A_Char_Stack()
 {
   size = 0;
   capacity = 2;
   arr = new char[capacity];
 }
 
-pStack::~pStack()
+A_Char_Stack::~A_Char_Stack()
 {
   delete[] arr;
 }
 
-void pStack::copy_array()
+void A_Char_Stack::copy_array()
 {
   char * temp = new char[capacity];
   for(int i = 0; i < size; i++)
@@ -27,7 +27,7 @@ void pStack::copy_array()
   return;
 }
 
-bool pStack::should_resize()
+bool A_Char_Stack::should_resize()
 {
   if(size == capacity - 2)
   {
@@ -45,13 +45,13 @@ bool pStack::should_resize()
   return true;
 }
 
-void pStack::push(char c)
+void A_Char_Stack::push(char c)
 {
   arr[size] = c;
   size++;
 }
 
-char pStack::pop()
+char A_Char_Stack::pop()
 {
   char popped_char = arr[size - 1];
   arr[size - 1] = '\0';
@@ -59,20 +59,12 @@ char pStack::pop()
   return popped_char;
 }
 
-int pStack::get_size()
+int A_Char_Stack::get_size()
 {
   return size;
 }
 
-void pStack::clear()
+void A_Char_Stack::clear()
 {
   size = 0;
-}
-
-void pStack::print_stack()
-{
-  for(int i = 0; i < size; i++)
-  {
-    cout << "Element " << i << ": " << arr[i] << endl;
-  }
 }

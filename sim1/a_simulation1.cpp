@@ -1,16 +1,18 @@
 #include <iostream>
 #include <fstream>
-#include "parenthesis_stack.h"
-#include "linked_stack.h"
+#include "l_char_stack.h"
+#include "a_char_stack.h"
+#include <stdlib.h>
 using namespace std;
 
 int main () {
+
   int total_lines = 0;
   int valid_lines = 0;
   int invalid_lines = 0;
   bool line_is_correct;
-  //pStack stack; // comment out if using linked list
-  Linked_List stack; // comment out if using dynamic array
+  A_Char_Stack stack; // comment out if using linked list
+  //L_Char_Stack stack; // comment out if using dynamic array
   char line[100];
   ifstream textfile;
   textfile.open ("parenthesis_txt2.txt", ifstream::in);

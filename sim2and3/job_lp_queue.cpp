@@ -1,15 +1,15 @@
 #include <iostream>
-#include "priority_customer_queue.h"
+#include "job_lp_queue.h"
 using namespace std;
 
-Priority_Customer_Queue::Priority_Customer_Queue()
+Job_Lp_Queue::Job_Lp_Queue()
 {
   size = 0;
   head = nullptr;
   tail = nullptr;
 }
 // add parameter 'char *ser' to enqueue for priority
-void Priority_Customer_Queue::enqueue(int a, int t, char n, char *type)
+void Job_Lp_Queue::enqueue(int a, int t, char n, char *type)
 {
   Customer * new_customer;
   Customer * next_customer;
@@ -67,7 +67,7 @@ void Priority_Customer_Queue::enqueue(int a, int t, char n, char *type)
   size += 1;
 }
 
-void Priority_Customer_Queue::dequeue()
+Customer* Job_Lp_Queue::dequeue()
 {
   int served_time;
   int end_time;
@@ -89,48 +89,20 @@ void Priority_Customer_Queue::dequeue()
   dequeued_customer->next = nullptr;
   dequeued_customer->previous = nullptr;
 
-  if(dequeued_customer->arrived > get_time())
-  {
-    add_time(dequeued_customer->arrived - get_time());
-  }
-  served_time = get_time();
-  add_time(dequeued_customer->time_to_serve);
-  end_time = get_time();
-  wait_time = served_time - dequeued_customer->arrived;
-
-  cout << dequeued_customer->name << "  " << dequeued_customer->type \
-  << "  " << dequeued_customer->arrived << "  " << served_time << "  " \
-  << end_time << "  " << wait_time << "  " << "Normal Service" << endl;
-
-  delete dequeued_customer;
-
-  return;
+  return dequeued_customer;
 }
 
-int Priority_Customer_Queue::size_of()
+int Job_Lp_Queue::size_of()
 {
   return size;
 }
 
-void Priority_Customer_Queue::print_queue()
-{
-  Customer *p;
-  p = head;
-  while(p != nullptr)
-  {
-    cout << "name: " << p->name << endl;
-    cout << "arrived: " << p->arrived << endl;
-    cout << "time_served: " << p->time_to_serve << endl;
-    p = p->next;
-  }
-}
-
-void Priority_Customer_Queue::add_time(int t)
+void Job_Lp_Queue::add_time(int t)
 {
   current_time += t;
 }
 
-int Priority_Customer_Queue::get_time()
+int Job_Lp_Queue::get_time()
 {
   return current_time;
 }
