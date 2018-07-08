@@ -1,5 +1,4 @@
 #include "a_job_queue.h"
-using namespace std;
 
 A_Job_Queue::A_Job_Queue()
 {
@@ -12,6 +11,10 @@ A_Job_Queue::A_Job_Queue()
 
 A_Job_Queue::~A_Job_Queue()
 {
+  while(size_of() != 0)
+  {
+    dequeue();
+  }
   delete[] arr;
 }
 
@@ -32,25 +35,20 @@ void A_Job_Queue::enqueue(int a, int t, char n, char *type)
   }
   else
   {
-    if(size < capacity )
-    {
-      arr[back_index % capacity] = new_customer;
-      back_index++;
-    }
+    arr[back_index % capacity] = new_customer;
+    back_index++;
   }
   size++;
   should_resize();
   return;
 }
 
-Customer* A_Job_Queue::dequeue()
+Customer A_Job_Queue::dequeue()
 {
-  int served_time;
-  int end_time;
-  int wait_time;
-
-  Customer* dequeued_customer;
-  dequeued_customer = arr[front_index % capacity];
+  Customer dequeued_customer;
+  dequeued_customer = *arr[front_index % capacity];
+  delete arr[front_index % capacity];
+  arr[front_index % capacity] = 0;
   front_index++;
   size--;
   if(size == 0)
@@ -80,7 +78,7 @@ void A_Job_Queue::copy_array()
   back_index = size;
   delete[] arr;
   arr = temp;
-  temp = nullptr;
+  temp = 0;
   return;
 }
 

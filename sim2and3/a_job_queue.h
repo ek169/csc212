@@ -18,7 +18,7 @@ class A_Job_Queue
     A_Job_Queue();
     ~A_Job_Queue();
     void enqueue(int, int, char, char*);
-    Customer* dequeue();
+    Customer dequeue();
     int size_of();
     bool should_resize();
     void add_time(int);

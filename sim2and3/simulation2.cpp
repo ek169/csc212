@@ -11,10 +11,10 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-  Customer* dequeued_customer;
-  //A_Job_Queue q;
+  Customer dequeued_customer;
+  A_Job_Queue q;
   //L_Job_Queue q;
-  Job_Ap_Queue q;
+  //Job_Ap_Queue q;
   //Job_Lp_Queue q;
   char line[100];
   int num_customers;
@@ -32,7 +32,6 @@ int main(int argc, char **argv)
   textfile.getline(line, sizeof(line));
   stringstream ss(line);
   ss >> num_customers;
-  cout << num_customers << endl;
   while(i < num_customers)
   {
     textfile.getline(line, sizeof(line));
@@ -49,19 +48,18 @@ int main(int argc, char **argv)
   while(q.size_of() != 0)
   {
     dequeued_customer = q.dequeue();
-    if(dequeued_customer->arrived > q.get_time())
+    if(dequeued_customer.arrived > q.get_time())
     {
-      q.add_time(dequeued_customer->arrived - q.get_time());
+      q.add_time(dequeued_customer.arrived - q.get_time());
     }
     served_time = q.get_time();
-    q.add_time(dequeued_customer->time_to_serve);
+    q.add_time(dequeued_customer.time_to_serve);
     end_time = q.get_time();
-    wait_time = served_time - dequeued_customer->arrived;
+    wait_time = served_time - dequeued_customer.arrived;
 
-    cout << dequeued_customer->name << "  " << dequeued_customer->type \
-    << "  " << dequeued_customer->arrived << "  " << served_time << "  " \
+    cout << dequeued_customer.name << "  " << dequeued_customer.type \
+    << "  " << dequeued_customer.arrived << "  " << served_time << "  " \
     << end_time << "  " << wait_time << "  " << "Normal Service" << endl;
-    delete dequeued_customer;
   }
 
 }

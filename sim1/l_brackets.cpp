@@ -49,7 +49,7 @@ bool L_Char_Stack::push(const ListItemType& newItem)
 }
 
 
-char L_Char_Stack::pop()
+ListItemType L_Char_Stack::pop()
 {
     char item;
     if(size > 0)

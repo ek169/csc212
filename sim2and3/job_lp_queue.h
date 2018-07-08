@@ -13,7 +13,7 @@ class Job_Lp_Queue
   public:
     Job_Lp_Queue();
     void enqueue(int, int, char, char*);
-    Customer* dequeue();
+    Customer dequeue();
     int size_of();
     void add_time(int);
     int get_time();

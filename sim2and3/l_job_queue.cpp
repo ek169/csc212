@@ -1,14 +1,20 @@
-#include <iostream>
 #include "l_job_queue.h"
-using namespace std;
 
 L_Job_Queue::L_Job_Queue()
 {
   size = 0;
-  head = nullptr;
-  tail = nullptr;
+  head = 0;
+  tail = 0;
 }
-// add parameter 'char *ser' to enqueue for priority
+
+L_Job_Queue::~L_Job_Queue()
+{
+  while(size_of() != 0)
+  {
+    dequeue();
+  }
+}
+
 void L_Job_Queue::enqueue(int a, int t, char n, char *type)
 {
   Customer * new_customer;
@@ -23,39 +29,44 @@ void L_Job_Queue::enqueue(int a, int t, char n, char *type)
   {
     tail = new_customer;
     head = new_customer;
-    new_customer->next = nullptr;
-    new_customer->previous = nullptr;
+    new_customer->next = 0;
+    new_customer->previous = 0;
   }
   else
   {
     new_customer->next = head;
-    new_customer->previous = nullptr;
+    new_customer->previous = 0;
     head->previous = new_customer;
     head = new_customer;
   }
   size += 1;
 }
 
-Customer* L_Job_Queue::dequeue()
+Customer L_Job_Queue::dequeue()
 {
 
   Customer *dequeued_customer;
+  Customer dequeue_customer_const;
   dequeued_customer = tail;
+  dequeue_customer_const = *dequeued_customer;
   size--;
   if(size == 0)
   {
-    head = nullptr;
-    tail = nullptr;
+    head = 0;
+    tail = 0;
   }
   else
   {
     tail = tail->previous;
-    tail->next = nullptr;
+    tail->next = 0;
   }
-  dequeued_customer->next = nullptr;
-  dequeued_customer->previous = nullptr;
+  dequeued_customer->next = 0;
+  dequeued_customer->previous = 0;
+  delete dequeued_customer;
 
-  return dequeued_customer;
+  dequeue_customer_const.next = 0;
+  dequeue_customer_const.previous = 0;
+  return dequeue_customer_const;
 }
 
 int L_Job_Queue::size_of()
@@ -63,18 +74,6 @@ int L_Job_Queue::size_of()
   return size;
 }
 
-void L_Job_Queue::print_queue()
-{
-  Customer *p;
-  p = head;
-  while(p != nullptr)
-  {
-    cout << "name: " << p->name << endl;
-    cout << "arrived: " << p->arrived << endl;
-    cout << "time_served: " << p->time_to_serve << endl;
-    p = p->next;
-  }
-}
 
 void L_Job_Queue::add_time(int t)
 {

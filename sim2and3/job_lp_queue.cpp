@@ -1,12 +1,10 @@
-#include <iostream>
 #include "job_lp_queue.h"
-using namespace std;
 
 Job_Lp_Queue::Job_Lp_Queue()
 {
   size = 0;
-  head = nullptr;
-  tail = nullptr;
+  head = 0;
+  tail = 0;
 }
 // add parameter 'char *ser' to enqueue for priority
 void Job_Lp_Queue::enqueue(int a, int t, char n, char *type)
@@ -26,8 +24,8 @@ void Job_Lp_Queue::enqueue(int a, int t, char n, char *type)
   {
     tail = new_customer;
     head = new_customer;
-    new_customer->next = nullptr;
-    new_customer->previous = nullptr;
+    new_customer->next = 0;
+    new_customer->previous = 0;
   }
   else
   {
@@ -44,15 +42,15 @@ void Job_Lp_Queue::enqueue(int a, int t, char n, char *type)
     if(num_cust == 0)
     {
       new_customer->next = next_customer;
-      new_customer->previous = nullptr;
+      new_customer->previous = 0;
       next_customer->previous = new_customer;
       head = new_customer;
     }
     else if(num_cust == size)
     {
-      next_customer->next = new_customer;
-      new_customer->previous = next_customer;
-      new_customer->next = nullptr;
+      tail->next = new_customer;
+      new_customer->previous = tail;
+      new_customer->next = 0;
       tail = new_customer;
     }
     else
@@ -65,31 +63,38 @@ void Job_Lp_Queue::enqueue(int a, int t, char n, char *type)
     }
   }
   size += 1;
+  return;
 }
 
-Customer* Job_Lp_Queue::dequeue()
+Customer Job_Lp_Queue::dequeue()
 {
-  int served_time;
-  int end_time;
-  int wait_time;
-
   Customer *dequeued_customer;
+  Customer dequeue_customer_const;
+
   dequeued_customer = tail;
+  dequeue_customer_const = *dequeued_customer;
+
   size--;
+
   if(size == 0)
   {
-    head = nullptr;
-    tail = nullptr;
+    head = 0;
+    tail = 0;
   }
   else
   {
     tail = tail->previous;
-    tail->next = nullptr;
+    tail->next = 0;
   }
-  dequeued_customer->next = nullptr;
-  dequeued_customer->previous = nullptr;
 
-  return dequeued_customer;
+  dequeued_customer->next = 0;
+  dequeued_customer->previous = 0;
+  delete dequeued_customer;
+
+  dequeue_customer_const.next = 0;
+  dequeue_customer_const.previous = 0;
+
+  return dequeue_customer_const;
 }
 
 int Job_Lp_Queue::size_of()

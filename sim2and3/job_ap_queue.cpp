@@ -17,12 +17,13 @@ Job_Ap_Queue::~Job_Ap_Queue()
 // add parameter 'char *ser' to enqueue for priority
 void Job_Ap_Queue::enqueue(int a, int t, char n, char *type)
 {
-  Customer* new_customer;
-  Customer* next_customer;
-  Customer* current_customer;
-  new_customer = new Customer;
+  Customer *new_customer;
+  Customer *next_customer;
+  Customer *current_customer;
   int num_cust;
   int to_increment;
+
+  new_customer = new Customer;
   new_customer->name = n;
   new_customer->type = type;
   new_customer->arrived = a;
@@ -75,14 +76,13 @@ void Job_Ap_Queue::enqueue(int a, int t, char n, char *type)
   return;
 }
 
-Customer* Job_Ap_Queue::dequeue()
+Customer Job_Ap_Queue::dequeue()
 {
-  int served_time;
-  int end_time;
-  int wait_time;
 
-  Customer* dequeued_customer;
-  dequeued_customer = arr[front_index % capacity];
+  Customer dequeued_customer;
+  dequeued_customer = *arr[front_index % capacity];
+  delete arr[front_index % capacity];
+  arr[front_index % capacity] = 0;
   front_index++;
   size--;
   if(size == 0)

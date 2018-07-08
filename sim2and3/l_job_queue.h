@@ -12,10 +12,10 @@ class L_Job_Queue
 
   public:
     L_Job_Queue();
+    ~L_Job_Queue();
     void enqueue(int, int, char, char*);
-    Customer* dequeue();
+    Customer dequeue();
     int size_of();
-    void print_queue();
     void add_time(int);
     int get_time();
 };

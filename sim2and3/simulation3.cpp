@@ -9,12 +9,12 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-  typedef Job_Ap_Queue queue_type;
-  //typedef Job_Lp_Queue queue_type;
+  //typedef Job_Ap_Queue queue_type;
+  typedef Job_Lp_Queue queue_type;
   queue_type * q;
   queue_type master_q;
-  Customer * next_customer;
-  Customer * dequeued_customer;
+  Customer next_customer;
+  Customer dequeued_customer;
   int * available;
   int shortest_queue;
   char line[100];
@@ -56,19 +56,17 @@ int main(int argc, char **argv)
     }
 
     q = new queue_type[num_queues];
-    available = new int[num_queues];
+    available = new int[num_queues] ();
 
     while(master_q.size_of() != 0)
     {
       shortest_queue = 0;
       next_customer = master_q.dequeue();
 
-      arrival = next_customer->arrived;
-      wait = next_customer->time_to_serve;
-      name = next_customer->name;
-      customer_type = next_customer->type;
-
-      delete next_customer;
+      arrival = next_customer.arrived;
+      wait = next_customer.time_to_serve;
+      name = next_customer.name;
+      customer_type = next_customer.type;
 
       is_enqueued = 0;
       for(i = 1; i < num_queues; i++)
@@ -106,19 +104,18 @@ int main(int argc, char **argv)
       while(q[i].size_of() != 0)
       {
         dequeued_customer = q[i].dequeue();
-        if(dequeued_customer->arrived > q[i].get_time())
+        if(dequeued_customer.arrived > q[i].get_time())
         {
-          q[i].add_time(dequeued_customer->arrived - q[i].get_time());
+          q[i].add_time(dequeued_customer.arrived - q[i].get_time());
         }
         served_time = q[i].get_time();
-        q[i].add_time(dequeued_customer->time_to_serve);
+        q[i].add_time(dequeued_customer.time_to_serve);
         end_time = q[i].get_time();
-        wait_time = served_time - dequeued_customer->arrived;
+        wait_time = served_time - dequeued_customer.arrived;
 
-        cout << dequeued_customer->name << "  " << dequeued_customer->type \
-        << "  " << dequeued_customer->arrived << "  " << served_time << "  " \
+        cout << dequeued_customer.name << "  " << dequeued_customer.type \
+        << "  " << dequeued_customer.arrived << "  " << served_time << "  " \
         << end_time << "  " << wait_time << "  " << "Normal Service" << endl;
-        delete dequeued_customer;
       }
       i++;
     }
